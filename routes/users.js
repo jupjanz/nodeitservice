@@ -13,15 +13,22 @@ router.get('/users', async (req, res) => {
 })
 
 router.post('/users/register', async (req, res) => {
+    const schema = Joi.object({
+        username : Joi.string().min(6).max(255).required(),
+        email : Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+        password : Joi.string().min(6).max(255).required()
+    })
+       
     try {
-        // const schema = {
-        //     username : Joi.string().min(6).max(255).required(),
-        //     email : Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
-        //     password : Joi.string().min(6).max(255).required()
-        // }
-        // const result = Joi.validate()
-        // console.log(result);
-        // res.json(result)
+        const {error} = await schema.validate(req.body)
+        if(error) return res.status(400).send(error.details[0].message)
+
+        const usernameExist = await User.findOne({username : req.body.username})
+        if(usernameExist) return res.status(400).send('username already exists')
+
+        const emailExist = await User.findOne({email : req.body.email})
+        if(emailExist) return res.status(400).send('email already exists')
+
         const users = new User({
             username: req.body.username,
             email: req.body.email,

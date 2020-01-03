@@ -6,7 +6,7 @@ const postsRouter = require('./routes/posts')
 const usersRouter = require('./routes/users')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-
+const port = process.env.PORT || 5000
 
 const routers = ([postsRouter,usersRouter])
 
@@ -19,9 +19,7 @@ app.use('/api',routers)
 
 
 //Routes
-app.get('/',(req,res) => {
-    res.send('kuy')
-})
+
 
 //connect to db
 const mongdb = 'mongodb+srv://itservice:1234@project1-jlxnr.mongodb.net/test?retryWrites=true&w=majority'
@@ -30,6 +28,6 @@ mongoose.connect(process.env.DB_CONNECTION ,{ useNewUrlParser: true, useUnifiedT
 })
 
 
-app.listen(3001,() => {
+app.listen(port,() => {
     console.log('start node port 3001')
 })

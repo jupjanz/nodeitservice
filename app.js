@@ -24,7 +24,7 @@ app.use('/api',routers)
 //connect to db
 const mongdb = 'mongodb+srv://itservice:1234@project1-jlxnr.mongodb.net/test?retryWrites=true&w=majority'
 mongoose.connect(process.env.DB_CONNECTION ,{ useNewUrlParser: true, useUnifiedTopology: true }, () => {
-    console.log('connected to mongodb')
+    console.log('connected to mongodbs')
 })
 
 

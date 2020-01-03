@@ -12,10 +12,10 @@ const routers = ([postsRouter,usersRouter])
 
 //middleware
 app.use(cors())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true })) 
 app.use(bodyParser.json())
 app.use('/api',routers)
-// app.use(usersRouter)
+// app.use(usersRouters)
 
 
 //Routes
